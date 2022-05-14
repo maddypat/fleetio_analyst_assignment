@@ -1,0 +1,39 @@
+
+version: 2
+
+models:
+  - name: lead_conversion
+    description: Model that allows grouping of leads by different time intervals.
+    columns:
+      - name: lead_id
+        description: The unique id of the lead.
+      - name: source
+        description: The source of the lead.
+      - name: converted_at_day
+        description: The day that the lead was converted.
+      - name: converted_at_week
+        description: The week that the lead was converted, with the week starting on Monday.
+      - name: converted_at_month
+        description: The month that the lead was converted.
+
+  - name: lead_drivers
+    description: A subset of the data from the leads data that focuses on possible drivers of conversion.
+    columns:
+      - name: lead_id
+        description: The unique id of the lead.
+      - name: is_converted
+        description: Boolean indicating whether a lead was converted.
+      - name: is_closed
+        description: Boolean indicating whether an account was closed.
+      - name: is_won
+        description: Boolean indicating whether an account was won.
+      - name: job_title
+        description: The job title of the lead.
+      - name: source
+        description: The source of the lead.
+      - name: industry
+        description: The industry of the lead.
+      - name: fleet_size
+        description: The fleet size of the lead.
+      - name: state
+        description: The state the lead is located. All leads are in the US in this data set.

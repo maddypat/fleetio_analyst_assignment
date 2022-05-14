@@ -1,0 +1,86 @@
+
+version: 2
+
+models:
+  - name: stg_leads
+    description: Contact and business information of converted leads.
+    columns:
+      - name: id
+        tests:
+          - unique
+          - not_null
+      - name: first_name
+      - name: last_name
+      - name: job_title
+      - name: email
+      - name: company
+      - name: created_at
+      - name: converted_at
+      - name: source
+      - name: country
+      - name: city
+      - name: state
+      - name: industry
+      - name: fleet_size
+
+  - name: stg_contacts
+    description: Contacts genrated from leads.
+    columns:
+      - name: id
+        tests:
+          - unique
+          - not_null
+      - name: first_name
+      - name: last_name
+      - name: job_title
+      - name: email
+      - name: account_id
+        tests:
+          - relationships:
+              to: ref('stg_accounts')
+              field: id
+      - name: lead_id
+        tests:
+          - relationships:
+              to: ref('stg_leads')
+              field: id
+      - name: created_at
+
+  - name: stg_accounts
+    description: Account information, generated after lead conversion.
+    columns:
+      - name: id
+        tests:
+          - unique
+          - not_null
+      - name: company
+      - name: primary_contact_id
+        tests:
+          - relationships:
+              to: ref('stg_contacts')
+              field: id
+      - name: country
+      - name: state
+      - name: city
+      - name: industry
+      - name: fleet_size
+
+  - name: stg_opportunities
+    description: Status of accounts, generated after lead conversion.
+    columns:
+      - name: id
+        tests:
+          - unique
+          - not_null
+      - name: account_id
+        tests:
+          - relationships:
+              to: ref('stg_accounts')
+              field: id
+      - name: created_at
+      - name: closed_at
+      - name: is_closed
+      - name: is_won
+      - name: country
+      - name: state
+      - name: city
